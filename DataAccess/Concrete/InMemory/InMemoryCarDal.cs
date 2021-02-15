@@ -1,5 +1,6 @@
 ﻿using DataAccess.Abstract;
 using Entities.Concrete;
+using Entities.DTOs;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -63,18 +64,23 @@ namespace DataAccess.Concrete
             return getCars;
         }
 
+        public List<CarDetailDto> GetCarDetail()
+        {
+            throw new NotImplementedException();
+        }
+
         public void Update(Car car)
         {
-            List<Car> updateCars = carList.Where(p => p.CarId == car.CarId).ToList();
-            foreach (var c in updateCars)
-            {
-                c.CarId = car.CarId;
-                c.ColorId = car.ColorId;
-                c.BrandId = car.BrandId;
-                c.DailyPrice = car.DailyPrice;
-                c.Description = car.Description;
-                c.ModelYear = car.ModelYear;
-            }
+            Car updateCars = carList.FirstOrDefault(p => p.CarId == car.CarId);
+
+
+            updateCars.CarId = car.CarId;
+            updateCars.ColorId = car.ColorId;
+            updateCars.BrandId = car.BrandId;
+            updateCars.DailyPrice = car.DailyPrice;
+            updateCars.Description = car.Description;
+            updateCars.ModelYear = car.ModelYear;
+            
         }
     }
 }

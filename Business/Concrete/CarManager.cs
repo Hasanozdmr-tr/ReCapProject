@@ -1,4 +1,6 @@
 ﻿using Business.Abstract;
+using Business.Constant;
+using Core.Utilities;
 using DataAccess.Abstract;
 using DataAccess.Concrete;
 using Entities.Concrete;
@@ -10,10 +12,10 @@ using System.Text;
 
 namespace Business.Concrete
 {
-    public class CarManager: ICarService
+    public class CarManager : ICarService
     {
         ICarDal _carDal;
-        
+
 
         public CarManager(ICarDal carDal)
         {
@@ -21,69 +23,63 @@ namespace Business.Concrete
         }
 
 
-        public List<Car> GetAll()
+        public IDataResult<List<Car>> GetAll()
         {
-            return _carDal.GetAll();
-        }
-
-        public void Add(Car car)
-        {
-            var AynıKayıtVarMı = _carDal.GetAll(p => p.Description == car.Description);
-            if (AynıKayıtVarMı!=null)
+            if(DateTime.Now.Hour==22)
             {
-                Console.WriteLine("Bu araba daha önce listeye eklenmiştir.");
-            }
-            
-            else
-            { 
-                if (car.DailyPrice > 0 && car.Description.Length > 2)
-                {
-                    _carDal.Add(car);
-                    Console.WriteLine(car.Description + " isimli araba Listeye eklenmiştir.");
-                }
-                else if (car.DailyPrice <= 0)
-                {
-                    Console.WriteLine("Araba kiralama ücreti 0 dan küçük olmamalıdır! ");
-                }
-                else if (car.Description.Length <= 2)
-                    Console.WriteLine("Araba ismi 2 karakterden büyük olmalıdır.");
-
+                return new ErrorDataResult<List<Car>>(Messages.CarMaintenenceTime);
             }
 
-
-
-
+            return new SuccessDataResult<List<Car>>(_carDal.GetAll(), Messages.CarListed);
         }
 
-        public void Update(Car car)
+        public IResult Add(Car car)
+        { 
+        if(car.Description.Length<2)
+        {
+            return new ErrorResult(Messages.CarNameInValid);
+        }
+
+            _carDal.Add(car);
+            return new SuccessResult(Messages.CarAdded);
+        }
+
+
+
+        public IResult Update(Car car)
         {
             _carDal.Update(car);
-            Console.WriteLine(car.Description + " Detayları Güncellenmiştir.");
+            return new SuccessResult(Messages.CarUpdated);
         }
 
-        public void Delete(Car car)
+        public IResult Delete(Car car)
         {
             _carDal.Delete(car);
+            return new SuccessResult("Ürün silindi");
         }
 
-        public List<Car> GetCarsByBrandId(int brandId)
+        public IDataResult<List<Car>> GetCarsByBrandId(int brandId)
         {
-            return _carDal.GetAll().Where(p=>p.BrandId== brandId).ToList();
+            return new SuccessDataResult<List<Car>>(_carDal.GetAll().Where(p=>p.BrandId== brandId).ToList(),Messages.CarListed);
         }
 
-        public List<Car> GetCarsByColorId(int colorId)
+        public IDataResult<List<Car>> GetCarsByColorId(int colorId)
         {
-            return _carDal.GetAll().Where(p => p.ColorId == colorId).ToList();
+            return new SuccessDataResult<List<Car>>(_carDal.GetAll().Where(p => p.ColorId == colorId).ToList(), Messages.CarListed);
         }
 
-        public List<CarDetailDto> GetCarDetail()
+        public IDataResult<List<CarDetailDto>> GetCarDetail()
         {
-            return _carDal.GetCarDetail();
+            if ((int)DateTime.Now.DayOfWeek == 3)
+            {
+                return new ErrorDataResult<List<CarDetailDto>>(Messages.CarMaintenenceTime);
+            }
+            return new SuccessDataResult<List<CarDetailDto>>(_carDal.GetCarDetail(), Messages.CarListed); 
         }
 
-        public List<Car> GetByUnitPrice(decimal min, decimal max)
+        public IDataResult<List<Car>> GetByUnitPrice(decimal min, decimal max)
         {
-            return _carDal.GetAll(p=>p.DailyPrice>min && p.DailyPrice<max);
+            return new SuccessDataResult<List<Car>>(_carDal.GetAll(p=>p.DailyPrice>min && p.DailyPrice<max), Messages.CarListed); 
         }
     }
 }

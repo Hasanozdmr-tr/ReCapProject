@@ -33,11 +33,10 @@ namespace ConsoleUI
             Rental rental = new Rental
 
             {
-                Id = 3,
-                CarId = 3,
+                Id=5,
+                CarId = 1,
                 CustomerId = 2,
-                RentDate = DateTime.Now,
-                ReturnDate = null
+                
 
             };
 

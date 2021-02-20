@@ -36,21 +36,24 @@ namespace Business.Concrete
                     }
                 }
             }
-           
+            rental.RentDate = DateTime.Now;
+            rental.ReturnDate = null;
             _rentalDal.Add(rental);
             return new SuccessResult(Messages.RentalAdded);
         }
 
         public IResult Completed(Rental rental)
         {
-            var _rental = _rentalDal.GetAll(p => p.Id == rental.Id);
-            foreach (var rent in _rental)
+            var completeRental = _rentalDal.GetAll(p => p.Id == rental.Id);
+            if(completeRental.Any(p=>p.ReturnDate==null) && (completeRental.Count!=0))
             {
-                rent.ReturnDate = DateTime.Now;
-                _rentalDal.Update(rent);
+                rental.ReturnDate = DateTime.Now;
+                _rentalDal.Update(rental);
+                return new SuccessResult(Messages.RentalCompleted);
             }
-          
-            return new SuccessResult(Messages.RentalCompleted);
+            else
+           return new SuccessResult(Messages.RentalNotCompleted);
+
         }
 
         public IResult Delete(Rental rental)

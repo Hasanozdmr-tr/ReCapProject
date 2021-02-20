@@ -25,7 +25,7 @@ namespace Business.Concrete
 
         public IDataResult<List<Car>> GetAll()
         {
-            if(DateTime.Now.Hour==22)
+            if(DateTime.Now.Hour==01)
             {
                 return new ErrorDataResult<List<Car>>(Messages.CarMaintenenceTime);
             }
@@ -34,11 +34,16 @@ namespace Business.Concrete
         }
 
         public IResult Add(Car car)
-        { 
-        if(car.Description.Length<2)
+        {
+            var CarControl = _carDal.GetAll(p => p.CarId == car.CarId);
+        if (car.Description.Length<2)
         {
             return new ErrorResult(Messages.CarNameInValid);
         }
+        else if(CarControl.Count>=1)
+            {
+                return new ErrorResult(Messages.CarSameName);
+            }
 
             _carDal.Add(car);
             return new SuccessResult(Messages.CarAdded);
@@ -48,12 +53,22 @@ namespace Business.Concrete
 
         public IResult Update(Car car)
         {
+            var _car = _carDal.Get(p => p.CarId == car.CarId);
+            if (_car == null)
+            {
+                return new ErrorDataResult<Car>(Messages.CarCouldntFound);
+            }
             _carDal.Update(car);
             return new SuccessResult(Messages.CarUpdated);
         }
 
         public IResult Delete(Car car)
         {
+            var _car = _carDal.Get(p => p.CarId == car.CarId);
+            if (_car == null)
+            {
+                return new ErrorDataResult<Car>(Messages.CarCouldntFound);
+            }
             _carDal.Delete(car);
             return new SuccessResult("Ürün silindi");
         }
@@ -80,6 +95,16 @@ namespace Business.Concrete
         public IDataResult<List<Car>> GetByUnitPrice(decimal min, decimal max)
         {
             return new SuccessDataResult<List<Car>>(_carDal.GetAll(p=>p.DailyPrice>min && p.DailyPrice<max), Messages.CarListed); 
+        }
+
+        public IDataResult<Car> Get(int id)
+        {
+            var _car = _carDal.Get(p => p.CarId == id);
+            if (_car==null)
+            {
+                return new ErrorDataResult<Car>(Messages.CarCouldntFound);
+            }
+            return new SuccessDataResult<Car>(_car, Messages.CarListed);
         }
     }
 }

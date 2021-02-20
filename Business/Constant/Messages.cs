@@ -26,6 +26,29 @@ namespace Business.Constant
         public static string ColorListed = "Renkler Listelendi. ";
         public static string ColorUpdated = "Renk güncellendi. ";
         public static string ColorDeleted = "Renk silindi. ";
+        /////////
+        public static string UserAdded = "Kullanıcı Eklendi.";
+        public static string UserNameInValid = "Kullanıcı ismi geçersiz.";
+        public static string UserMaintenenceTime = "Sistem bakımda olduğundan işleminize devam edilemiyor.";
+        public static string UserListed = "Kullanıcılar Listelendi. ";
+        public static string UserUpdated = "Kullanıcı bilgileri veritabanında güncellendi. ";
+        public static string UserDeleted = "Kullanıcı bilgileri veritabanından silindi. ";
+        ////////
+        public static string CustomerAdded = "Müşteri Eklendi.";
+        public static string CustomerInValid = "Müşteri ismi geçersiz.";
+        public static string CustomerMaintenenceTime = "Sistem bakımda olduğundan işleminize devam edilemiyor.";
+        public static string CustomerListed = "Müşteriler Listelendi. ";
+        public static string CustomerUpdated = "Müşteri bilgileri veritabanında güncellendi. ";
+        public static string CustomerDeleted = "Müşteri veritabanından silindi. ";
+        ///////
+        public static string RentalAdded = "Kiralama işlemi başladı.";
+        public static string RentalNameInValid = "Kiralama ismi geçersiz.";
+        public static string RentalMaintenenceTime = "Sistem bakımda olduğundan işleminize devam edilemiyor.";
+        public static string RentalListed = "Kiralamalar Listelendi. ";
+        public static string RentalUpdated = "Kiralama işlemi güncellendi. ";
+        public static string RentalDeleted = "Kiralama işlemi veritabanından silindi. ";
+        public static string RentalNotAvailable = "Bu araba için kiralama işlemi yapılamaz.";
+        public static string RentalCompleted = "Kiralama işlemi tamamlandı.";
     }
 }
 

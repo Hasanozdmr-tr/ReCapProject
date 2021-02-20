@@ -30,6 +30,19 @@ namespace ConsoleUI
             };
             //CarManager carManager = new CarManager(new EfCarDal());
 
+            Rental rental = new Rental
+
+            {
+                Id = 3,
+                CarId = 3,
+                CustomerId = 2,
+                RentDate = DateTime.Now,
+                ReturnDate = null
+
+            };
+
+            RentalTest(rental);
+
             CarTest();
             Console.WriteLine("----------------------");
             GetCarDetailTest();
@@ -37,7 +50,7 @@ namespace ConsoleUI
             BrandTest(1);
             Console.WriteLine("----------------------");
             ColorTest();
-           
+
 
 
             //AddCarTestEntityFramework(car1);
@@ -69,6 +82,17 @@ namespace ConsoleUI
             //Console.WriteLine("----------------------");
 
             //carManager.Add(car2);
+        }
+
+        private static void RentalTest(Rental rental)
+        {
+            RentalManager rentalmanager = new RentalManager(new EfRentalDal { });
+
+            var result1 = rentalmanager.Add(rental);
+            Console.WriteLine(result1.Message);
+
+            var result2 = rentalmanager.Completed(rental);
+            Console.WriteLine(result2.Message);
         }
 
         private static void UpdateCarTestEntityFramework(Car car1)

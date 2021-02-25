@@ -6,6 +6,7 @@ using System;
 
 namespace ConsoleUI
 {
+    
     class Program
     {
         static void Main(string[] args)
@@ -28,7 +29,7 @@ namespace ConsoleUI
                 ModelYear = 2020,
                 Description = "B"
             };
-            //CarManager carManager = new CarManager(new EfCarDal());
+            CarManager carManager = new CarManager(new EfCarDal());
 
             Rental rental = new Rental
 
@@ -39,7 +40,7 @@ namespace ConsoleUI
                 
 
             };
-
+         
             RentalTest(rental);
 
             CarTest();

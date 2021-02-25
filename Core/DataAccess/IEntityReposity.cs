@@ -9,7 +9,6 @@ namespace Core
     public interface IEntityReposity<T> where T: class,IEntity,new()
     {
         
-
         T Get(Expression<Func<T,bool>> filter);
 
         List<T> GetAll(Expression<Func<T, bool>> filter=null);

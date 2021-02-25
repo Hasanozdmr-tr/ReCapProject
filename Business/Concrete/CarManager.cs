@@ -1,12 +1,17 @@
 ﻿using Business.Abstract;
 using Business.Constant;
+using Business.DependencyResolvers.ValidationRules.FluentValidator;
+using Core.Aspects.Autofac.Validation;
+using Core.CrosCuttingConcern.Validation;
 using Core.Utilities;
 using DataAccess.Abstract;
 using DataAccess.Concrete;
 using Entities.Concrete;
 using Entities.DTOs;
+using FluentValidation;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 
@@ -33,8 +38,13 @@ namespace Business.Concrete
             return new SuccessDataResult<List<Car>>(_carDal.GetAll(), Messages.CarListed);
         }
 
+        [ValidationAspect(typeof(CarValidator))]
         public IResult Add(Car car)
         {
+          
+            ValidationTool.Validate(new CarValidator(), car);
+
+
             var CarControl = _carDal.GetAll(p => p.CarId == car.CarId);
         if (car.Description.Length<2)
         {

@@ -52,6 +52,12 @@ namespace Business.Constant
         public static string RentalNotAvailable = "Bu araba için kiralama işlemi yapılamaz,henüz teslim edilmemitşir.";
         public static string RentalCompleted = "Kiralama işlemi tamamlandı.";
         public static string RentalNotCompleted = "Araba henüz teslim edilmemiştir.";
+        /////
+        public static string CarImageAdded = "Araba resmi eklendi.";
+        public static string CarImageDeleted = "Araba resmi silindi.";
+        public static string CarImageUpdated = "Araba resmi güncellendi.";
+        public static string CarImageNumberReacedMaxLimit = "Resim eklenemez, Araba resmi belirlenen max sayıya ulaştı.";
+        public static string CarImagesListed = "Tüm Araba resimleri listelendi.";
     }
 }
 

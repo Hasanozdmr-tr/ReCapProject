@@ -27,7 +27,8 @@ namespace WebAPI.Controllers
         }
 
 
-        [HttpPost("Add")]  
+        [HttpPost("Add")]
+        //[Authorize(Roles = "Admin,CarAdd")]
         public IActionResult Add(Car car)
         {
            
@@ -39,6 +40,7 @@ namespace WebAPI.Controllers
         }
 
         [HttpPost("Update")]
+        //[Authorize(Roles = "Admin")]
         public IActionResult Update(Car car)
         {
 
@@ -50,6 +52,7 @@ namespace WebAPI.Controllers
         }
 
         [HttpPost("Delete")]
+        //[Authorize(Roles = "Admin")]
         public IActionResult Delete(Car car)
         {
 
@@ -60,7 +63,7 @@ namespace WebAPI.Controllers
                 return Ok(result.Message);
         }
         [HttpGet("GetAll")]
-        [Authorize(Roles = "ProductList")]
+        //[Authorize(Roles = "CarList,Admin")]
         public IActionResult GetAll()
         {
             
@@ -75,6 +78,7 @@ namespace WebAPI.Controllers
         }
 
         [HttpGet("GetById")]
+        //[Authorize(Roles = "Admin")]
         public IActionResult GetById(int Id)
         {
 

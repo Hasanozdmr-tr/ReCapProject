@@ -1,6 +1,10 @@
 ﻿using Business.Abstract;
+using Business.BusinessAspects.Autofac;
 using Business.Constant;
 using Business.DependencyResolvers.ValidationRules.FluentValidator;
+using Core.Aspects.Autofac.Caching;
+using Core.Aspects.Autofac.Performance;
+using Core.Aspects.Autofac.Transaction;
 using Core.Aspects.Autofac.Validation;
 using Core.CrosCuttingConcern.Validation;
 using Core.Utilities;
@@ -27,7 +31,8 @@ namespace Business.Concrete
             _carDal = carDal;
         }
 
-
+        [SecuredOperation("Admin,CarList")]
+        [CacheAspect]
         public IDataResult<List<Car>> GetAll()
         {
             if(DateTime.Now.Hour==01)
@@ -39,6 +44,9 @@ namespace Business.Concrete
         }
 
         [ValidationAspect(typeof(CarValidator))]
+        [SecuredOperation("Admin")]
+        [TransactionScopeAspect]
+        [CacheRemoveAspect("IProductService.Get")]
         public IResult Add(Car car)
         {
           
@@ -57,10 +65,12 @@ namespace Business.Concrete
 
             _carDal.Add(car);
             return new SuccessResult(Messages.CarAdded);
+             
         }
 
 
-
+        [CacheRemoveAspect("IProductService.Get")]
+        [TransactionScopeAspect]
         public IResult Update(Car car)
         {
             var _car = _carDal.Get(p => p.CarId == car.CarId);
@@ -72,6 +82,8 @@ namespace Business.Concrete
             return new SuccessResult(Messages.CarUpdated);
         }
 
+        [TransactionScopeAspect]
+        [CacheRemoveAspect("IProductService.Get")]
         public IResult Delete(Car car)
         {
             var _car = _carDal.Get(p => p.CarId == car.CarId);
@@ -107,6 +119,8 @@ namespace Business.Concrete
             return new SuccessDataResult<List<Car>>(_carDal.GetAll(p=>p.DailyPrice>min && p.DailyPrice<max), Messages.CarListed); 
         }
 
+        [PerformanceAspect(5)]
+        [CacheAspect]
         public IDataResult<Car> Get(int id)
         {
             var _car = _carDal.Get(p => p.CarId == id);

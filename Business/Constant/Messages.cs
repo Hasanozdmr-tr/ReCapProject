@@ -1,6 +1,7 @@
 ﻿using Core.Entities.Concrete;
 using System;
 using System.Collections.Generic;
+using System.Runtime.Serialization;
 using System.Text;
 
 namespace Business.Constant
@@ -70,6 +71,8 @@ namespace Business.Constant
         public static string UserRegistered = "Kullanıcı Kayıt edildi.";
 
         public static string AccessTokenCreated = "Acces Token oluşturuldu.";
+
+        public static string AuthorizationDenied = "Yetki yok";
     }
 
 }

@@ -31,11 +31,11 @@ namespace Business.Concrete
             _carDal = carDal;
         }
 
-        [SecuredOperation("Admin,CarList")]
+       // [SecuredOperation("Admin,CarList")]
         [CacheAspect]
         public IDataResult<List<Car>> GetAll()
         {
-            if(DateTime.Now.Hour==01)
+            if(DateTime.Now.Hour==05)
             {
                 return new ErrorDataResult<List<Car>>(Messages.CarMaintenenceTime);
             }
@@ -44,9 +44,9 @@ namespace Business.Concrete
         }
 
         [ValidationAspect(typeof(CarValidator))]
-        [SecuredOperation("Admin")]
+        [SecuredOperation("Admin,CarAdd")]
         [TransactionScopeAspect]
-        [CacheRemoveAspect("IProductService.Get")]
+        [CacheRemoveAspect("ICarService.Get")]
         public IResult Add(Car car)
         {
           
@@ -69,7 +69,7 @@ namespace Business.Concrete
         }
 
 
-        [CacheRemoveAspect("IProductService.Get")]
+        [CacheRemoveAspect("ICarService.Get")]
         [TransactionScopeAspect]
         public IResult Update(Car car)
         {
@@ -83,7 +83,7 @@ namespace Business.Concrete
         }
 
         [TransactionScopeAspect]
-        [CacheRemoveAspect("IProductService.Get")]
+        [CacheRemoveAspect("ICarService.Get")]
         public IResult Delete(Car car)
         {
             var _car = _carDal.Get(p => p.CarId == car.CarId);
@@ -105,7 +105,7 @@ namespace Business.Concrete
             return new SuccessDataResult<List<Car>>(_carDal.GetAll().Where(p => p.ColorId == colorId).ToList(), Messages.CarListed);
         }
 
-        public IDataResult<List<CarDetailDto>> GetCarDetail()
+        public IDataResult<List<CarDetailDto>> GetAllCarDetails()
         {
             if ((int)DateTime.Now.DayOfWeek == 3)
             {

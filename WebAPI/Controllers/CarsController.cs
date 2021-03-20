@@ -70,7 +70,7 @@ namespace WebAPI.Controllers
             var result = _carService.GetAll();
             if(result.Success)
 
-                return Ok(result.Data);
+                return Ok(result);
             else
                 return Ok(result.Message);
 
@@ -91,6 +91,23 @@ namespace WebAPI.Controllers
 
 
         }
+
+        [HttpGet("GetAllCarDetails")]
+        //[Authorize(Roles = "Admin")]
+        public IActionResult GetAllCarDetails()
+        {
+
+            var result = _carService.GetAllCarDetails();
+            if (result.Success)
+
+                return Ok(result);
+            else
+                return Ok(result.Message);
+
+
+        }
+
+
 
     }
     

@@ -1,4 +1,5 @@
 ﻿using Core.Entities.Concrete;
+using Entities.DTOs;
 using System;
 using System.Collections.Generic;
 using System.Runtime.Serialization;
@@ -73,6 +74,8 @@ namespace Business.Constant
         public static string AccessTokenCreated = "Acces Token oluşturuldu.";
 
         public static string AuthorizationDenied = "Yetki yok";
+
+        public static string RentalNoData = "Hiç Kiralama İşlemi yok.";
     }
 
 }

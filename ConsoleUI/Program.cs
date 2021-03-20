@@ -104,7 +104,7 @@ namespace ConsoleUI
         private static void GetCarDetailTest()
         {
             CarManager carManager = new CarManager(new EfCarDal());
-            var result = carManager.GetCarDetail();
+            var result = carManager.GetAllCarDetails();
             if(result.Success)
             {
                 foreach (var car in result.Data)

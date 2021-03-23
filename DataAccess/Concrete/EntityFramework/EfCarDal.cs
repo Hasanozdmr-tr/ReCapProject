@@ -25,11 +25,14 @@ namespace DataAccess.Concrete
                              select new CarDetailDto
                              {
                                  CarId = c.CarId,
+                                 BrandId = b.BrandId,
+                                 ColorId = cl.ColorId,
                                  CarName = c.Description,
                                  BrandName = b.BrandName,
                                  DailyPrice = c.DailyPrice,
                                  ColorName = cl.ColorName,
                                  ModelYear = c.ModelYear
+
                              };
 
 

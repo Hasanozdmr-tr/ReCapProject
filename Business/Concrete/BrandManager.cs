@@ -55,7 +55,7 @@ namespace Business.Concrete
             
         }
 
-        [SecuredOperation("Admin")]
+        //[SecuredOperation("Admin")]
         [CacheAspect]
         public IDataResult<List<Brand>> GetAll()
         {

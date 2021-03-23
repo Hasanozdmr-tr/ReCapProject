@@ -47,7 +47,7 @@ namespace Business.Concrete
             return new SuccessDataResult<Color>(_colorDal.Get(p => p.ColorId == id),Messages.ColorListed);
         }
 
-        [SecuredOperation("Admin")]
+        //[SecuredOperation("Admin")]
         [CacheAspect]
         public IDataResult<List<Color>> GetAll()
         {

@@ -95,14 +95,14 @@ namespace Business.Concrete
             return new SuccessResult("Ürün silindi");
         }
 
-        public IDataResult<List<Car>> GetCarsByBrandId(int brandId)
+        public IDataResult<List<CarDetailDto>> GetCarsByBrandId(int brandId)
         {
-            return new SuccessDataResult<List<Car>>(_carDal.GetAll().Where(p=>p.BrandId== brandId).ToList(),Messages.CarListed);
+            return new SuccessDataResult<List<CarDetailDto>>(_carDal.GetCarDetail().Where(p=>p.BrandId== brandId).ToList(),Messages.CarListed);
         }
 
-        public IDataResult<List<Car>> GetCarsByColorId(int colorId)
+        public IDataResult<List<CarDetailDto>> GetCarsByColorId(int colorId)
         {
-            return new SuccessDataResult<List<Car>>(_carDal.GetAll().Where(p => p.ColorId == colorId).ToList(), Messages.CarListed);
+            return new SuccessDataResult<List<CarDetailDto>>(_carDal.GetCarDetail().Where(p => p.ColorId == colorId).ToList(), Messages.CarListed);
         }
 
         public IDataResult<List<CarDetailDto>> GetAllCarDetails()
@@ -130,5 +130,6 @@ namespace Business.Concrete
             }
             return new SuccessDataResult<Car>(_car, Messages.CarListed);
         }
+
     }
 }

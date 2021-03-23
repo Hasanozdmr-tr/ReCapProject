@@ -61,7 +61,7 @@ namespace WebAPI.Controllers
             var result = _brandService.GetAll();
             if (result.Success)
 
-                return Ok(result.Data);
+                return Ok(result);
             else
                 return Ok(result.Message);
 

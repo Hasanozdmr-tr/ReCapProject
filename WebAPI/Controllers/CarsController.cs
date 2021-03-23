@@ -108,6 +108,38 @@ namespace WebAPI.Controllers
         }
 
 
+        [HttpGet("GetCarsByBrand")]
+        //[Authorize(Roles = "Admin")]
+        public IActionResult GetCarsByBrand(int brandId)
+        {
+
+            var result = _carService.GetCarsByBrandId(brandId);
+            if (result.Success)
+
+                return Ok(result);
+            else
+                return Ok(result.Message);
+
+
+        }
+
+
+        [HttpGet("GetCarsByColor")]
+        //[Authorize(Roles = "Admin")]
+        public IActionResult GetCarsByColor(int colorId)
+        {
+
+            var result = _carService.GetCarsByColorId(colorId);
+            if (result.Success)
+
+                return Ok(result);
+            else
+                return Ok(result.Message);
+
+
+        }
+
+
 
     }
     
